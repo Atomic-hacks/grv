@@ -3,8 +3,9 @@ import { Link, useNavigate } from "react-router-dom";
 import Card from "./ui/Card";
 import { products, formatPrice } from "../data/products";
 import { useCart } from "../context/CartContext";
+import { HiArrowUpRight } from "react-icons/hi2";
 
-const Arrow = () => <span aria-hidden="true">↗</span>;
+const Arrow = () => <HiArrowUpRight aria-hidden="true" className="inline-block text-base" />;
 
 export default function Hero() {
   const navigate = useNavigate();
@@ -95,7 +96,7 @@ export default function Hero() {
             View all <Arrow />
           </Link>
         </div>
-        <div className="grid grid-cols-1 gap-x-5 gap-y-9 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-2 gap-x-3 gap-y-7 sm:gap-x-5 sm:gap-y-9 lg:grid-cols-3">
           {arrivals.map((item) => (
             <div
               key={item.id}

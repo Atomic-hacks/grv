@@ -114,7 +114,7 @@ export default function Navbar() {
       )}
       <nav
         aria-label="Mobile quick navigation"
-        className="fixed inset-x-4 bottom-4 z-40 flex items-center justify-around rounded-full border border-black/10 bg-white/95 px-1 py-2 shadow-[0_10px_30px_rgba(0,0,0,0.14)] backdrop-blur-md md:hidden"
+        className="fixed inset-x-4 bottom-2 z-40 flex items-center justify-around rounded-full border border-black/10 bg-white/95 px-1 py-2 shadow-[0_10px_30px_rgba(0,0,0,0.14)] backdrop-blur-md md:hidden"
       >
         <button
           type="button"

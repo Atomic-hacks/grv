@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { HiArrowUpRight } from "react-icons/hi2";
 
 const Footer = () => (
   <footer className="bg-[#EF4824] pb-28 pt-14 text-white md:py-20">
@@ -24,7 +25,7 @@ const Footer = () => (
               placeholder="Your email address"
               className="min-w-0 flex-1 bg-transparent text-sm outline-none placeholder:text-white/40"
             />
-            <button className="text-sm hover:text-[#e85d04]">Join ↗</button>
+            <button className="inline-flex items-center gap-1 text-sm hover:text-[#e85d04]">Join <HiArrowUpRight aria-hidden="true" /></button>
           </form>
         </div>
         <div>
@@ -62,8 +63,8 @@ const Footer = () => (
             <a href="mailto:hello@grv.co" className="block hover:text-white">
               hello@grv.co
             </a>
-            <Link to="/contact" className="block hover:text-white">
-              Get in touch ↗
+            <Link to="/contact" className="inline-flex items-center gap-1 hover:text-white">
+              Get in touch <HiArrowUpRight aria-hidden="true" />
             </Link>
           </div>
         </div>
