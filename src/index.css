@@ -1,0 +1,54 @@
+@import "tailwindcss";
+
+@font-face { font-family: "Clash"; src: url("/fonts/ClashDisplay-Regular.otf") format("opentype"); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "Clash"; src: url("/fonts/ClashDisplay-Medium.otf") format("opentype"); font-weight: 500 700; font-style: normal; font-display: swap; }
+@font-face { font-family: "Nohemi"; src: url("/fonts/Nohemi-SemiBold-BF6438cc588b5e5.otf") format("opentype"); font-weight: 600 800; font-style: normal; font-display: swap; }
+@font-face { font-family: "NeueMachina"; src: url("/fonts/NeueMachina-Regular.otf") format("opentype"); font-weight: 400; font-style: normal; font-display: swap; }
+
+:root {
+  --color-orange: #EF4824;
+  --color-orange-dark: #EF4824;
+  --color-black: #0a0a0a;
+  --color-white: #ffffff;
+  --color-off-white: #f7f5f0;
+  --color-neutral: #f1f0ed;
+  --color-muted: #6f6f6a;
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 18px;
+  --space-xs: 8px;
+  --space-sm: 16px;
+  --space-md: 24px;
+  --space-lg: 48px;
+  --space-xl: 80px;
+  --space-2xl: 128px;
+  --container-width: 1280px;
+  --transition-fast: 200ms ease;
+  --transition-normal: 350ms cubic-bezier(.22,1,.36,1);
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+body { margin: 0; min-width: 320px; background: var(--color-white); color: var(--color-black); font-family: "Clash", Arial, sans-serif; font-size: 16px; }
+button, input, textarea { font: inherit; }
+button { cursor: pointer; }
+a { color: inherit; text-decoration: none; }
+h1, h2, h3, h4, p { margin: 0; }
+
+.site-container { width: min(calc(100% - 64px), var(--container-width)); margin: 0 auto; }
+.eyebrow { color: var(--color-orange); font-size: 12px; font-weight: 600; letter-spacing: .13em; text-transform: uppercase; }
+.display { font-family: "Nohemi", "Clash", sans-serif; font-weight: 600; letter-spacing: -.045em; line-height: .96; }
+.text-muted { color: var(--color-muted); }
+.editorial-link { align-items: center; border-bottom: 1px solid currentColor; display: inline-flex; font-size: 14px; gap: 10px; padding-bottom: 4px; transition: color var(--transition-fast); }
+.editorial-link:hover { color: var(--color-orange); }
+.primary-button { background: var(--color-orange); border: 1px solid var(--color-orange); border-radius: var(--radius-sm); color: #fff; display: inline-flex; font-size: 14px; font-weight: 500; justify-content: center; padding: 14px 22px; transition: background var(--transition-fast), border-color var(--transition-fast), transform var(--transition-fast); }
+.primary-button:hover { background: var(--color-orange-dark); border-color: var(--color-orange-dark); transform: translateY(-1px); }
+.secondary-button { background: #fff; border: 1px solid rgba(10,10,10,.16); border-radius: var(--radius-sm); color: var(--color-black); display: inline-flex; font-size: 14px; font-weight: 500; justify-content: center; padding: 14px 22px; transition: border-color var(--transition-fast), color var(--transition-fast); }
+.secondary-button:hover { border-color: var(--color-orange); color: var(--color-orange); }
+.bg-off-white { background-color: var(--color-off-white); }
+.bg-neutral { background-color: var(--color-neutral); }
+.brand-wordmark { font-family: "NeueMachina", "Clash", sans-serif; font-weight: 400; letter-spacing: -.08em; }
+
+@media (max-width: 700px) {
+  .site-container { width: min(calc(100% - 40px), var(--container-width)); }
+}
