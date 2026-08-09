@@ -1,7 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useCart } from "../../context/CartContext";
-import { HiOutlineBars3, HiOutlineHeart, HiOutlineMagnifyingGlass, HiOutlineShoppingBag, HiOutlineUser } from "react-icons/hi2";
+import {
+  HiOutlineBars3,
+  HiOutlineHeart,
+  HiOutlineMagnifyingGlass,
+  HiOutlineShoppingBag,
+  HiOutlineUser,
+} from "react-icons/hi2";
 import QuickDrawer from "./QuickDrawer";
 
 export default function Navbar() {
@@ -9,7 +15,10 @@ export default function Navbar() {
   const [quickDrawer, setQuickDrawer] = useState(null);
   const { itemCount, openCart } = useCart();
   const location = useLocation();
-  useEffect(() => { setMenuOpen(false); setQuickDrawer(null); }, [location.pathname]);
+  useEffect(() => {
+    setMenuOpen(false);
+    setQuickDrawer(null);
+  }, [location.pathname]);
   const links = [
     ["Shop", "/shop"],
     ["Collections", "/shop"],
@@ -114,7 +123,7 @@ export default function Navbar() {
       )}
       <nav
         aria-label="Mobile quick navigation"
-        className="fixed inset-x-4 -bottom-2 z-40 flex items-center justify-around rounded-full border border-black/10 bg-white/95 px-1 py-2 shadow-[0_10px_30px_rgba(0,0,0,0.14)] backdrop-blur-md md:hidden"
+        className="fixed inset-x-4 bottom-0 z-40 flex items-center justify-around rounded-full border border-black/10 bg-white/95 px-1 py-2 shadow-[0_10px_30px_rgba(0,0,0,0.14)] backdrop-blur-md md:hidden"
       >
         <button
           type="button"
