@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { Link, useLocation } from "react-router-dom";
 import { useCart } from "../../context/CartContext";
 import {
@@ -100,7 +100,7 @@ export default function Navbar() {
       <AnimatePresence>
         {menuOpen && (
           <motion.div
-            className="fixed inset-0 z-50 md:hidden"
+            className="fixed inset-0 z-50 overflow-hidden md:hidden"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -109,10 +109,10 @@ export default function Navbar() {
               type="button"
               aria-label="Close menu"
               onClick={() => setMenuOpen(false)}
-              className="absolute inset-0 bg-black/35"
+              className="absolute inset-0 z-0 bg-black/35"
             />
             <motion.aside
-              className="relative h-full w-[70vw] max-w-[390px] bg-white p-5 shadow-2xl"
+              className="absolute inset-y-0 left-0 z-10 w-[70vw] max-w-[390px] overflow-y-auto bg-white p-5 shadow-2xl"
               initial={{ x: "-100%" }}
               animate={{ x: 0 }}
               exit={{ x: "-100%" }}
