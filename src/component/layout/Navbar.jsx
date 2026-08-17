@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Link, useLocation } from "react-router-dom";
 import { useCart } from "../../context/CartContext";
 import {
+  HiChevronDown,
   HiOutlineBars3,
   HiOutlineHeart,
   HiOutlineMagnifyingGlass,
@@ -10,17 +11,24 @@ import {
   HiOutlineUser,
 } from "react-icons/hi2";
 import QuickDrawer from "./QuickDrawer";
+import { shopNavigation } from "../../catalog/productService";
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [quickDrawer, setQuickDrawer] = useState(null);
   const [navHidden, setNavHidden] = useState(false);
+  const [shopOpen, setShopOpen] = useState(false);
   const { itemCount, openCart } = useCart();
   const location = useLocation();
+  const shopRef = useRef(null);
+  const closeTimer = useRef(null);
+
   useEffect(() => {
     setMenuOpen(false);
     setQuickDrawer(null);
+    setShopOpen(false);
   }, [location.pathname]);
+
   useEffect(() => {
     let scrollEndTimer;
     const handleScroll = () => {
@@ -34,12 +42,46 @@ export default function Navbar() {
       window.clearTimeout(scrollEndTimer);
     };
   }, []);
+
+  // close the shop dropdown on outside click, and on Escape
+  useEffect(() => {
+    if (!shopOpen) return;
+
+    const handlePointerDown = (event) => {
+      if (shopRef.current && !shopRef.current.contains(event.target)) {
+        setShopOpen(false);
+      }
+    };
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape") setShopOpen(false);
+    };
+
+    document.addEventListener("mousedown", handlePointerDown);
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("mousedown", handlePointerDown);
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [shopOpen]);
+
+  // small delay before closing on mouse leave so crossing the gap
+  // between the trigger and the menu doesn't dismiss it
+  const scheduleClose = () => {
+    closeTimer.current = window.setTimeout(() => setShopOpen(false), 220);
+  };
+  const cancelClose = () => {
+    if (closeTimer.current) {
+      window.clearTimeout(closeTimer.current);
+      closeTimer.current = null;
+    }
+  };
+
   const links = [
-    ["Shop", "/shop"],
-    ["Collections", "/shop"],
+    ["Collections", "/collections"],
     ["About", "/brand"],
     ["Journal", "/journal"],
   ];
+
   return (
     <>
       <header className="sticky top-0 z-40 border-b border-black/10 bg-white/95 backdrop-blur-sm">
@@ -52,6 +94,51 @@ export default function Navbar() {
             <span className="block h-px w-5 bg-black shadow-[0_6px_0_#0a0a0a,0_-6px_0_#0a0a0a]" />
           </button>
           <nav className="hidden items-center gap-7 md:flex">
+            <div
+              ref={shopRef}
+              className="relative"
+              onMouseEnter={cancelClose}
+              onMouseLeave={scheduleClose}
+            >
+              <button
+                aria-haspopup="menu"
+                aria-expanded={shopOpen}
+                onClick={() => setShopOpen((open) => !open)}
+                className="flex items-center gap-1 text-sm transition hover:text-[#EF4824]"
+              >
+                Shop
+                <HiChevronDown
+                  aria-hidden="true"
+                  className={`text-sm transition-transform duration-200 ${shopOpen ? "rotate-180" : ""}`}
+                />
+              </button>
+              {/* invisible bridge closes the gap so hover doesn't drop mid-crossing */}
+              <div className="absolute left-0 top-full h-3 w-full" />
+              <AnimatePresence>
+                {shopOpen && (
+                  <motion.div
+                    role="menu"
+                    initial={{ opacity: 0, y: -6 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -6 }}
+                    transition={{ duration: 0.16, ease: "easeOut" }}
+                    className="absolute left-0 top-full mt-3 w-44 rounded-2xl border border-black/10 bg-white p-2 shadow-xl"
+                  >
+                    {shopNavigation.map(({ label, href }) => (
+                      <Link
+                        role="menuitem"
+                        key={label}
+                        to={href}
+                        onClick={() => setShopOpen(false)}
+                        className="block rounded-xl px-3 py-2 text-sm transition hover:bg-off-white hover:text-[#EF4824]"
+                      >
+                        {label}
+                      </Link>
+                    ))}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
             {links.map(([label, href]) => (
               <Link
                 key={label}
@@ -140,6 +227,15 @@ export default function Navbar() {
                 </button>
               </div>
               <nav className="flex flex-col py-8">
+                {shopNavigation.map(({ label, href }) => (
+                  <Link
+                    key={label}
+                    to={href}
+                    className="border-b border-black/10 py-3 text-xl"
+                  >
+                    {label}
+                  </Link>
+                ))}
                 {links.map(([label, href]) => (
                   <Link
                     key={label}

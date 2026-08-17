@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useCart } from "../../context/CartContext";
-import { formatPrice } from "../../data/products";
+import { formatPrice } from "../../catalog/productService";
 
 export default function CartDrawer() {
   const { isCartOpen, closeCart, cartItems, updateQty, removeFromCart, subtotal } = useCart();
